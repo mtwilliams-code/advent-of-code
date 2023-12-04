@@ -19,7 +19,7 @@ const allNumbers: Result[][] = lines.map((line) =>
 // result = [756, [0, 2]] (inclusive indices)
 
 // anything not a number or a dot is a symbol
-const isSymbol = (char: string) => char !== "." || !isNaN(parseInt(char));
+const isSymbol = (char: string) => char !== "." && isNaN(parseInt(char));
 
 function process(lines: string[], allNumbers: Result[][], debug = false) {
   const partNumbers: number[] = [];
@@ -86,5 +86,13 @@ function process(lines: string[], allNumbers: Result[][], debug = false) {
   return partNumbers;
 }
 
-const result = process(lines, allNumbers, true);
+const result = process(lines, allNumbers);
 console.log("sum " + result.reduce((a, b) => a + b, 0));
+
+const gearRegex = RegExp(/\*/, "g");
+const potentialGears = lines.map((line) =>
+  Array.from(line.matchAll(gearRegex), (match) => match.index)
+);
+console.log(potentialGears);
+
+// TODO finish step 2
